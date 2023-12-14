@@ -151,7 +151,7 @@ button:hover {
     padding: 5px;
     border: 1,5px solid rgb(203, 213, 225);
     width: 100%;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 550;
     outline: none;
     margin-top: 20px;
@@ -163,9 +163,9 @@ button:hover {
     background-color: #334155;
     border-radius: 5px;
     padding: 5px;
-    border: 1,5px solid rgb(203, 213, 225);
+    border: 1px solid rgb(203, 213, 225);
     width: 100%;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 550;
     outline: none;
     margin-top: 15px;
@@ -204,7 +204,11 @@ span {
 
 #searchButton i {
     font-size: 20px; 
-  }
+}
+
+#searchButton i:hover {
+    color: #fff;
+}
 
 
 
