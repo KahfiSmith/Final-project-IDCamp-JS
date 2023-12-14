@@ -1,0 +1,210 @@
+*, 
+::before, 
+::after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color:  rgb(15, 23, 42);
+    margin: 0;
+} 
+
+body::-webkit-scrollbar {
+    width: 0.1em;
+}
+
+header h1{
+    color: rgb(203, 213, 225);
+    font-weight: 600;
+    font-size: 42px;
+    text-align: center;
+    padding: 20px;
+    background-color: rgb(30, 41, 59);
+}
+
+h2 {
+    color: rgb(203, 213, 225);
+    font-weight: 500;
+    font-size: 32px;
+    text-align: center;
+    padding: 20px;
+}
+
+main {
+    max-width: 100%;
+    height: 100%;
+    margin: 10px auto 0;
+    position: relative;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(30, 41, 59);
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px; 
+    background-color: rgb(30, 41, 59);
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.contain-item-1 {
+    padding: 15px;
+    text-align: center;
+    background-color: #334155;
+    border-radius: 5px;
+    flex-basis: 30%;
+}
+
+.contain-item-2 {
+    padding: 15px;
+    text-align: center;
+    background-color: #334155;
+    border-radius: 5px;
+    flex-basis: 30%;
+}
+
+.contain-item-3 {
+    padding: 15px;
+    text-align: center;
+    background-color: #334155;
+    border-radius: 5px;
+    flex-basis: 30%;
+}
+
+.form-book {
+    color: rgb(203, 213, 225);
+    background-color: #2b3749;
+    border-radius: 5px;
+    padding: 15px;
+    border: 2px solid rgb(76, 90, 110);
+}
+
+label {
+    text-align: start;
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 550;
+}
+
+.form-grup {
+    margin-bottom: 10px;
+}
+
+.form-grup input {
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+}
+
+input {
+    background-color: rgb(203, 213, 225);
+}
+
+input:focus {
+    outline: none;
+    border: none; 
+}
+
+.check-box {
+    display: flex;
+    font-size: 14px;
+    margin-top: 5px;
+    font-weight: 500;
+    justify-content: start;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+input[type="checkbox"] {
+    margin-left: 7px;
+}
+
+button {
+    color: rgb(203, 213, 225);
+    background-color: #334155;
+    border-radius: 5px;
+    padding: 15px;
+    border: 2px solid rgb(203, 213, 225);
+    width: 100%;
+    font-size: 24px;
+    font-weight: 550;
+    outline: none;
+}
+
+button:hover {
+    background-color: #1e293b;
+}
+
+.button-delete {
+    color: rgb(203, 213, 225);
+    background-color: #334155;
+    border-radius: 5px;
+    padding: 5px;
+    border: 1,5px solid rgb(203, 213, 225);
+    width: 100%;
+    font-size: 18px;
+    font-weight: 550;
+    outline: none;
+    margin-top: 20px;
+    height: 40px;
+}
+
+.button-toggle {
+    color: rgb(203, 213, 225);
+    background-color: #334155;
+    border-radius: 5px;
+    padding: 5px;
+    border: 1,5px solid rgb(203, 213, 225);
+    width: 100%;
+    font-size: 18px;
+    font-weight: 550;
+    outline: none;
+    margin-top: 15px;
+    height: 40px;
+}
+
+.search {
+    background-color: #334155;
+    width: 70%;
+    padding: 15px;
+    border-radius: 7px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#search {
+    background: transparent;
+    outline: none;
+    border: none; 
+    color: rgb(203, 213, 225);
+    font-size: 20px;
+    font-weight: 500;
+}
+
+#search::placeholder {
+    color: rgb(203, 213, 225);
+}
+
+span {
+    color: rgb(203, 213, 225);
+    font-weight: 500;
+    background-color: #334155;
+    border-radius: 7px;
+}
+
+#searchButton i {
+    font-size: 20px; 
+  }
+
+
+
