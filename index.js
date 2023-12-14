@@ -15,9 +15,10 @@ function submitForm() {
     }
 
     var bookData = {
-        judul: judul,
-        penulis: penulis,
-        tahun: tahun,
+        id: generateUniqueId(),
+        title: judul,
+        author: penulis,
+        year: parseInt(tahun),
         isComplete: isComplete
     };
 
@@ -41,16 +42,16 @@ function moveBookToContainer(bookData) {
 
     var bookElement = document.createElement('div');
     bookElement.classList.add('book');
-    bookElement.innerHTML = '<p style="font-size: 26px; font-weight: 550;">' + bookData.judul + '</p>' +
-                            '<p><strong>Penulis :</strong> ' + bookData.penulis + '</p>' +
-                            '<p><strong>Tahun :</strong> ' + bookData.tahun + '</p>' +
-                            '<button class="button-delete" onclick="deleteBook(\'' + bookData.judul + '\')">Hapus Buku</button>';
+    bookElement.innerHTML = '<p style="font-size: 26px; font-weight: 550;">' + bookData.title + '</p>' +
+                            '<p><strong>Penulis :</strong> ' + bookData.author + '</p>' +
+                            '<p><strong>Tahun :</strong> ' + bookData.year + '</p>' +
+                            '<button class="button-delete" onclick="deleteBook(\'' + bookData.id + '\')">Hapus Buku</button>';
 
     var toggleButton = document.createElement('button');
     toggleButton.classList.add('button-toggle');
     toggleButton.textContent = bookData.isComplete ? 'Belum Selesai Dibaca' : 'Sudah Selesai Dibaca';
     toggleButton.onclick = function() {
-        toggleReadStatus(bookData.judul);
+        toggleReadStatus(bookData.id);
     };
     
     bookElement.appendChild(toggleButton);
@@ -76,14 +77,6 @@ function clearForm() {
 function displayStoredBooks() {
     var books = JSON.parse(localStorage.getItem('books')) || [];
 
-    books.forEach(function(book) {
-        moveBookToContainer(book);
-    });
-}
-
-function displayStoredBooks() {
-    var books = JSON.parse(localStorage.getItem('books')) || [];
-
     var containers = document.querySelectorAll('.container-item');
     containers.forEach(function(container) {
         container.innerHTML = '';
@@ -94,28 +87,27 @@ function displayStoredBooks() {
     });
 }
 
-displayStoredBooks();
-
-function deleteBook(judul) {
+function deleteBook(id) {
     var books = JSON.parse(localStorage.getItem('books')) || [];
 
     var index = books.findIndex(function(book) {
-        return book.judul === judul;
+        return book.id === id;
     });
 
     if (index !== -1) {
-        var isConfirmed = confirm('Yakin ingin menghapus buku "' + judul + '"?');
+        var isConfirmed = confirm('Yakin ingin menghapus buku dengan ID "' + id + '"?');
 
         if (!isConfirmed) {
             return;
         }
+        
         var deletedBook = books.splice(index, 1)[0];
         localStorage.setItem('books', JSON.stringify(books));
 
         var containerId = deletedBook.isComplete ? 'selesaiDibaca' : 'belumSelesaiDibaca';
         var container = document.getElementById(containerId);
         var bookElement = Array.from(container.getElementsByClassName('book')).find(function(element) {
-            return element.getElementsByTagName('p')[0].innerText === deletedBook.judul;
+            return element.getElementsByTagName('p')[0].innerText === deletedBook.title;
         });
 
         if (bookElement) {
@@ -124,11 +116,11 @@ function deleteBook(judul) {
     }
 }
 
-function toggleReadStatus(judul) {
+function toggleReadStatus(id) {
     var books = JSON.parse(localStorage.getItem('books')) || [];
 
     var index = books.findIndex(function(book) {
-        return book.judul === judul;
+        return book.id === id;
     });
 
     if (index !== -1) {
@@ -140,7 +132,7 @@ function toggleReadStatus(judul) {
         var currentContainerId = toggledBook.isComplete ? 'belumSelesaiDibaca' : 'selesaiDibaca';
         var currentContainer = document.getElementById(currentContainerId);
         var currentBookElement = Array.from(currentContainer.getElementsByClassName('book')).find(function(element) {
-            return element.getElementsByTagName('p')[0].innerText === toggledBook.judul;
+            return element.getElementsByTagName('p')[0].innerText === toggledBook.title;
         });
 
         if (currentBookElement) {
@@ -164,16 +156,16 @@ function searchBooks(keyword) {
         container.innerHTML = ''; 
 
         books.forEach(function (book) {
-            if (!isBookAlreadyDisplayed(book.judul, container)) {
+            if (!isBookAlreadyDisplayed(book.title, container)) {
                 moveBookToContainer(book);
             }
         });
     }
 
-    function isBookAlreadyDisplayed(judul, container) {
+    function isBookAlreadyDisplayed(title, container) {
         var bookElements = container.getElementsByClassName('book');
         for (var i = 0; i < bookElements.length; i++) {
-            if (bookElements[i].getElementsByTagName('p')[0].innerText === judul) {
+            if (bookElements[i].getElementsByTagName('p')[0].innerText === title) {
                 return true; 
             }
         }
@@ -195,16 +187,23 @@ function searchBooks(keyword) {
     }
 
     var filteredIncompleteBooks = incompleteBooks.filter(function (book) {
-        return book.judul.toLowerCase().includes(keyword) ||
-            book.penulis.toLowerCase().includes(keyword) ||
-            book.tahun.includes(keyword);
+        return book.title.toLowerCase().includes(keyword) ||
+            book.author.toLowerCase().includes(keyword) ||
+            book.year.toString().includes(keyword);
     });
     displayBooksInContainer(filteredIncompleteBooks, 'belumSelesaiDibaca');
 
     var filteredCompleteBooks = completeBooks.filter(function (book) {
-        return book.judul.toLowerCase().includes(keyword) ||
-            book.penulis.toLowerCase().includes(keyword) ||
-            book.tahun.includes(keyword);
+        return book.title.toLowerCase().includes(keyword) ||
+            book.author.toLowerCase().includes(keyword) ||
+            book.year.toString().includes(keyword);
     });
     displayBooksInContainer(filteredCompleteBooks, 'selesaiDibaca');
 }
+
+function generateUniqueId() {
+    var timestamp = new Date().getTime();
+    return 'book_' + timestamp; 
+}
+
+displayStoredBooks();
